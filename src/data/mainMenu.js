@@ -5,7 +5,7 @@ export const mainMenu = [
   {
     title: 'Delivery',
     icon: <Motorcycle />,
-    link: '/'
+    link: '/delivery'
   },
   {
     title: 'Carta',

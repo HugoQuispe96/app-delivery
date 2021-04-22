@@ -4,6 +4,7 @@ import Carta from '../../views/Carta';
 import RedesSociales from '../../views/RedesSociales';
 import Ubicacion from '../../views/Ubicacion';
 import Horario from '../../views/Horario';
+import Inicio from '../../views/Inicio';
 import { Switch, Route } from "react-router-dom";
 
 const Body = () => {
@@ -22,8 +23,11 @@ const Body = () => {
         <Route path="/carta">
           <Carta />
         </Route>
-        <Route path="/">
+        <Route path="/delivery">
           <Delivery />
+        </Route>
+        <Route path="/">
+          <Inicio />
         </Route>
       </Switch>
     </Container>

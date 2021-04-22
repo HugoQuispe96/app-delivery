@@ -1,5 +1,5 @@
 import { Avatar, Container, Divider, Typography, Grid, IconButton } from '@material-ui/core';
-import { WhatsApp, Share, Phone } from '@material-ui/icons';
+import { WhatsApp, Mail, Phone } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/core/styles';
 //import { useState } from 'react';
 
@@ -35,19 +35,29 @@ const InfoHeader = () => {
       <Divider className={classes.divider} />
       <Grid container spacing={3}>
         <Grid item xs={4}>
-          <IconButton aria-label="Whatsapp">
-            <WhatsApp />
-          </IconButton>
+          <a
+            href="https://api.whatsapp.com/send?phone=+56983499427&text=Hola,%20¿Qué%20tal%20estás?"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <IconButton aria-label="Whatsapp">
+              <WhatsApp />
+            </IconButton>
+          </a>
         </Grid>
         <Grid item xs={4}>
-          <IconButton aria-label="Llamar">
-            <Phone />
-          </IconButton>
+          <a href="tel:+56983499427">
+            <IconButton aria-label="Llamar">
+              <Phone />
+            </IconButton>
+          </a>
         </Grid>
         <Grid item xs={4}>
-          <IconButton aria-label="Compartir">
-            <Share />
-          </IconButton>
+          <a href="mailto:hugo.quispe96@outlook.es">
+            <IconButton aria-label="Email">
+              <Mail />
+            </IconButton>
+          </a>
         </Grid>
       </Grid>
     </Container>

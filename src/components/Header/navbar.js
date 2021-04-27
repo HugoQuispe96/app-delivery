@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import RestaurantContext from '../../context/Restaurant/RestaurantContext';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -21,6 +22,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function MenuAppBar({ onChangeOpenLeftDrawer, onChangeOpenRightDrawer }) {
   const classes = useStyles();
+  const restaurantContext = useContext(RestaurantContext);
 
   const handleMainMenuButtom = () => {
     onChangeOpenLeftDrawer();
@@ -44,7 +46,7 @@ export default function MenuAppBar({ onChangeOpenLeftDrawer, onChangeOpenRightDr
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" className={classes.title}>
-            Sakura
+            {restaurantContext.restaurant?.nombre}
           </Typography>
           <div>
             <IconButton

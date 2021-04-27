@@ -1,7 +1,8 @@
+import { useContext } from 'react';
+import RestaurantContext from '../../context/Restaurant/RestaurantContext';
 import { Avatar, Container, Divider, Typography, Grid, IconButton } from '@material-ui/core';
 import { WhatsApp, Mail, Phone } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/core/styles';
-//import { useState } from 'react';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -27,16 +28,17 @@ const useStyles = makeStyles((theme) => ({
 
 const InfoHeader = () => {
   const classes = useStyles();
+  const restaurantContext = useContext(RestaurantContext);
 
   return (
     <Container maxWidth="md" className={classes.root}>
-      <Avatar alt="Imagen Principal" src="https://admin.alacarta.online/files/Sakura%20redondo.png" className={classes.large} />
-      <Typography variant="h1" className={classes.text}>Abierto</Typography>
+      <Avatar alt="Logo Principal" src={restaurantContext.restaurant?.url_logo} className={classes.large} />
+      <Typography variant="h2" className={classes.text}>Abierto</Typography>
       <Divider className={classes.divider} />
       <Grid container spacing={3}>
         <Grid item xs={4}>
           <a
-            href="https://api.whatsapp.com/send?phone=+56983499427&text=Hola,%20¿Qué%20tal%20estás?"
+            href={`https://api.whatsapp.com/send?phone=${restaurantContext.restaurant?.whatsapp}&text=${restaurantContext.restaurant?.mensaje_wsp}`}
             target="_blank"
             rel="noreferrer"
           >
@@ -46,14 +48,14 @@ const InfoHeader = () => {
           </a>
         </Grid>
         <Grid item xs={4}>
-          <a href="tel:+56983499427">
+          <a href={`tel:${restaurantContext.restaurant?.telefono}`}>
             <IconButton aria-label="Llamar">
               <Phone />
             </IconButton>
           </a>
         </Grid>
         <Grid item xs={4}>
-          <a href="mailto:hugo.quispe96@outlook.es">
+          <a href={`mailto:${restaurantContext.restaurant?.correo}`}>
             <IconButton aria-label="Email">
               <Mail />
             </IconButton>

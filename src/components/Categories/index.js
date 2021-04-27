@@ -7,7 +7,8 @@ import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Grid from '@material-ui/core/Grid';
 import ProductCard from '../ProductCard';
-import { categorias } from '../../data/categorias';
+import { useContext } from "react";
+import RestaurantContext from "../../context/Restaurant/RestaurantContext";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -24,6 +25,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Categories({ isDelivery }) {
+  const restaurantContext = useContext(RestaurantContext);
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
 
@@ -31,35 +33,35 @@ export default function Categories({ isDelivery }) {
     setExpanded(isExpanded ? panel : false);
   };
 
-  const listCategories = categorias.map((categoria) =>
-    <Accordion key={categoria.id} expanded={expanded === categoria.id} onChange={handleChange(categoria.id)}>
-      <AccordionSummary
-        expandIcon={<ExpandMoreIcon />}
-        aria-controls={`${categoria.id}bh-content`}
-        id={`${categoria.id}bh-header`}
-      >
-        <Grid container>
-          <Grid item md={4} xs={12}>
-            <Typography className={classes.heading}>{categoria.title}</Typography>
-          </Grid>
-          <Grid item md={8} xs={12}>
-            <Typography className={classes.secondaryHeading}>{categoria.subtittle}</Typography>
-          </Grid>
-        </Grid>
-      </AccordionSummary>
-      <AccordionDetails>
-        <Grid container>
-          <Grid item xs={12}>
-            {categoria.items.map((product) => <ProductCard key={product.name} {...product} isDelivery={isDelivery} />)}
-          </Grid>
-        </Grid>
-      </AccordionDetails>
-    </Accordion>
-  );
-
   return (
     <div className={classes.root}>
-      {listCategories}
+      {
+        restaurantContext.restaurant.categoria ? restaurantContext.restaurant.categoria.map((categoria) => (
+          <Accordion key={categoria.id} expanded={expanded === categoria.id} onChange={handleChange(categoria.id)}>
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls={`${categoria.id}bh-content`}
+              id={`${categoria.id}bh-header`}
+            >
+              <Grid container>
+                <Grid item md={4} xs={12}>
+                  <Typography className={classes.heading}>{categoria.nombre}</Typography>
+                </Grid>
+                <Grid item md={8} xs={12}>
+                  <Typography className={classes.secondaryHeading}>{categoria.descripcion}</Typography>
+                </Grid>
+              </Grid>
+            </AccordionSummary>
+            <AccordionDetails>
+              <Grid container>
+                <Grid item xs={12}>
+                  {categoria.productos.map((product) => <ProductCard key={product.id} {...product} isDelivery={isDelivery} />)}
+                </Grid>
+              </Grid>
+            </AccordionDetails>
+          </Accordion>
+        )) : null
+      }
     </div>
   );
 }

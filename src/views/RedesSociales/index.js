@@ -1,5 +1,6 @@
+import { useContext } from 'react';
+import RestaurantContext from '../../context/Restaurant/RestaurantContext';
 import { IconButton, Typography, Grid } from '@material-ui/core';
-import { redesSociales } from '../../data/redes_sociales';
 import { makeStyles } from '@material-ui/core/styles';
 import { iconosSociales } from '../../utiles/iconos'
 
@@ -13,27 +14,30 @@ const useStyles = makeStyles((theme) => ({
 
 const RedesSociales = () => {
   const classes = useStyles();
-  const socialButtons = redesSociales.map((social) => {
-    if (social.isEnable) {
-      return <Grid key={social.name} item xs={12}>
-        <a href={social.link} target="_blank" rel="noreferrer">
-          <IconButton aria-label={social.name}>
-            {iconosSociales(social.icon)}
-          </IconButton>
-        </a>
-      </Grid>
-    }
-    else {
-      return false
-    }
-  })
+  const restaurantContext = useContext(RestaurantContext);
+  const redesSociales = restaurantContext.restaurant?.red_socials;
+
   return (
     <div>
       <Grid container spacing={3}>
         <Grid item xs={12}>
           <Typography className={classes.text}>Encuentranos en:</Typography>
         </Grid>
-        {socialButtons}
+        {redesSociales && (redesSociales.map((social) => {
+          if (social.esta_disponible) {
+            return <Grid key={social.id} item xs={12}>
+              <a href={social.url} target="_blank" rel="noreferrer">
+                <IconButton aria-label={social.nombre}>
+                  {iconosSociales(social.icono)}
+                </IconButton>
+              </a>
+            </Grid>
+          }
+          else {
+            return null
+          }
+        }))
+        }
       </Grid>
     </div>
   );
